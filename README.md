@@ -1,2 +1,4 @@
 # sudoku_database
-sudoku simple solver with database (Mongodb) function
+- sudoku simple solver (python brute force)
+- database (Mongodb) function
+- UI (Qt designer) for input and output
