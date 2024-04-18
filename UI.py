@@ -16,7 +16,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(817, 925)
+        MainWindow.resize(820, 700)
         font = QtGui.QFont()
         font.setPointSize(12)
         MainWindow.setFont(font)
@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
         self.btn_GetSol = QtWidgets.QPushButton(self.frame_5)
-        self.btn_GetSol.setGeometry(QtCore.QRect(260, 10, 100, 30))
+        self.btn_GetSol.setGeometry(QtCore.QRect(350, 10, 100, 30))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.btn_GetSol.setFont(font)
@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.btn_NewEntry.setFont(font)
         self.btn_NewEntry.setObjectName("btn_NewEntry")
         self.btn_Database = QtWidgets.QPushButton(self.frame_5)
-        self.btn_Database.setGeometry(QtCore.QRect(380, 10, 100, 30))
+        self.btn_Database.setGeometry(QtCore.QRect(470, 10, 100, 30))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.btn_Database.setFont(font)
@@ -59,6 +59,15 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.QsNum.setFont(font)
         self.QsNum.setObjectName("QsNum")
+        self.btn_Clear = QtWidgets.QPushButton(self.frame_5)
+        self.btn_Clear.setGeometry(QtCore.QRect(590, 10, 100, 30))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btn_Clear.setFont(font)
+        self.btn_Clear.setObjectName("btn_Clear")
+        self.Box_Overwrite = QtWidgets.QCheckBox(self.frame_5)
+        self.Box_Overwrite.setGeometry(QtCore.QRect(250, 20, 111, 17))
+        self.Box_Overwrite.setObjectName("Box_Overwrite")
         self.verticalLayout.addWidget(self.frame_5)
         self.frame_Title = QtWidgets.QFrame(self.frame_App)
         self.frame_Title.setEnabled(False)
@@ -1066,6 +1075,21 @@ class Ui_MainWindow(object):
         self.verticalLayout.setStretch(0, 1)
         self.verticalLayout.setStretch(1, 1)
         self.verticalLayout.setStretch(2, 10)
+        self.text_ClientAddress = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_ClientAddress.setGeometry(QtCore.QRect(30, 530, 700, 30))
+        self.text_ClientAddress.setFont(font)
+        self.text_ClientAddress.setText("")
+        self.text_ClientAddress.setObjectName("text_ClientAddress")
+        self.text_DatabaseName = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_DatabaseName.setGeometry(QtCore.QRect(30, 570, 700, 30))
+        self.text_DatabaseName.setFont(font)
+        self.text_DatabaseName.setText("")
+        self.text_DatabaseName.setObjectName("text_DatabaseName")
+        self.text_CollectionName = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_CollectionName.setGeometry(QtCore.QRect(30, 610, 700, 30))
+        self.text_CollectionName.setFont(font)
+        self.text_CollectionName.setText("")
+        self.text_CollectionName.setObjectName("text_CollectionName")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 817, 21))
@@ -1241,16 +1265,75 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.sol_37, self.sol_28)
         MainWindow.setTabOrder(self.sol_28, self.SolLabel)
         MainWindow.setTabOrder(self.SolLabel, self.sol_27)
+        
+        # Palette for shadowed blocks
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(204, 204, 204))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        # Coloring the shadowed blocks
+        for k in range(1,5):
+            match k:
+                case 1:
+                    x1, y1, x2, y2 = 1, 4, 4, 7
+                case 2:
+                    x1, y1, x2, y2 = 4, 7, 1, 4
+                case 3:
+                    x1, y1, x2, y2 = 4, 7, 7, 10
+                case 4:
+                    x1, y1, x2, y2 = 7, 10, 4, 7 
+            for i in range(x1,y1):
+                for j in range(x2,y2):
+                    temp_color = QtWidgets.QTextEdit.findChild(self.frame_QsBoard, QtWidgets.QTextEdit, "qs_"+str(i)+str(j))
+                    temp_color.setPalette(palette)
+                    temp_color = QtWidgets.QTextEdit.findChild(self.frame_SolBoard, QtWidgets.QTextEdit, "sol_"+str(i)+str(j))
+                    temp_color.setPalette(palette)
+                    
+        # Connect buttons to related functions
         self.btn_GetSol.clicked.connect(self.GetSol)
         self.btn_NewEntry.clicked.connect(self.NewEntry)
         self.btn_Database.clicked.connect(self.Database)
+        self.btn_Clear.clicked.connect(self.Clear)
+        self.set_default_variables()
 
+    # Clear both Question and Solution boards
+    def Clear(self):
+        for i in range(1,10):
+            for j in range(1,10):
+                temp_write = QtWidgets.QTextEdit.findChild(self.frame_SolBoard, QtWidgets.QTextEdit, "sol_"+str(i)+str(j))
+                temp_write.setText("")
+                temp_write = QtWidgets.QTextEdit.findChild(self.frame_QsBoard, QtWidgets.QTextEdit, "qs_"+str(i)+str(j))
+                temp_write.setText("")
+    
+    # Read Question and Solution from database with specified Question Number
     def Database(self):
         DatabaseMode = True
         ReplaceMode = False
         ReadMode = True
-        SudokuWDatabase.main(DatabaseMode, ReadMode, ReplaceMode, self.set_common_variables)
-    
+        client_address, collection_name, db_name, question_num, question_board, solution = self.set_common_variables()
+        question_board, solution = SudokuWDatabase.main(DatabaseMode, ReadMode, ReplaceMode, client_address, collection_name, db_name, question_num, question_board, solution)
+        for i in range(1,10):
+            for j in range(1,10):
+                temp_write = QtWidgets.QTextEdit.findChild(self.frame_SolBoard, QtWidgets.QTextEdit, "sol_"+str(i)+str(j))
+                temp_write.setText(solution[i-1][j-1])
+                temp_write = QtWidgets.QTextEdit.findChild(self.frame_QsBoard, QtWidgets.QTextEdit, "qs_"+str(i)+str(j))
+                temp_write.setText(question_board[i-1][j-1])
+        
     # Take input from Question board
     # Generate solution and output to Solution board
     # DO NOT save to database
@@ -1270,8 +1353,14 @@ class Ui_MainWindow(object):
     # Generate solution and output to Solution board
     # Save to database
     def NewEntry(self):
+        match self.Box_Overwrite.checkState():
+            case 0:
+                ReplaceMode = False
+            case 2:
+                ReplaceMode = True
+            case _:
+                ReplaceMode = False
         DatabaseMode = True
-        ReplaceMode = False
         ReadMode = False
         client_address, collection_name, db_name, question_num, question_board, solution = self.set_common_variables()
         SudokuWDatabase.main(DatabaseMode, ReadMode, ReplaceMode, client_address, collection_name, db_name, question_num, question_board, solution)
@@ -1291,32 +1380,33 @@ class Ui_MainWindow(object):
 
     # client_address, collection_name, db_name, question_num, question_board, solution
     def set_common_variables(self):
-        client_address = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.5"
-        collection_name = "example"
-        db_name = "sudoku"
+        client_address = self.text_ClientAddress.text()
+        db_name = self.text_DatabaseName.text()
+        collection_name = self.text_CollectionName.text()
         question_num = self.QsNum.text()
-        '''question_board = (
-        [["2",".","1","8",".",".",".",".","4"],
-        ["8","9",".","3",".",".","2","6","1"],
-        [".","6","7","1",".","9",".",".","5"],
-        [".",".","8",".",".","6",".",".","."],
-        [".",".","3","5",".",".","6",".","."],
-        [".",".","2","7","4","3",".","9","8"],
-        [".",".",".",".",".",".",".","1","9"],
-        ["5",".","9",".","3","2",".",".","6"],
-        [".",".",".",".","1","7","4","5","2"]]
-        ) '''
         question_board = self.readQSBoard()
         solution = copy.deepcopy(question_board)
         return (client_address, collection_name, db_name, question_num, question_board, solution)
 
+    # default common variables
+    def set_default_variables(self):
+        self.text_ClientAddress.setText("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.5")
+        self.text_DatabaseName.setText("sudoku")
+        self.text_CollectionName.setText("example")
+
+    # MainWindow Text
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.btn_GetSol.setText(_translate("MainWindow", "Get Sol"))
         self.btn_NewEntry.setText(_translate("MainWindow", "New Entry"))
         self.btn_Database.setText(_translate("MainWindow", "Database"))
+        self.btn_Clear.setText(_translate("MainWindow", "Clear"))
+        self.Box_Overwrite.setText(_translate("MainWindow", "Overwrite"))
         self.QsNum.setPlaceholderText(_translate("MainWindow", "Qs Number"))
+        self.text_ClientAddress.setPlaceholderText(_translate("MainWindow", "Client Address"))
+        self.text_DatabaseName.setPlaceholderText(_translate("MainWindow", "Database Name"))
+        self.text_CollectionName.setPlaceholderText(_translate("MainWindow", "Collection Name"))
         self.QsLabel.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -1347,8 +1437,7 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>"))
-
-
+     
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
