@@ -1313,6 +1313,7 @@ class Ui_MainWindow(object):
 
     # Clear both Question and Solution boards
     def Clear(self):
+        self.QsNum.setText("")
         for i in range(1,10):
             for j in range(1,10):
                 temp_write = QtWidgets.QTextEdit.findChild(self.frame_SolBoard, QtWidgets.QTextEdit, "sol_"+str(i)+str(j))
