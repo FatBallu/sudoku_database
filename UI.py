@@ -1397,7 +1397,7 @@ class Ui_MainWindow(object):
     # MainWindow Text
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sudoku Solver with Database"))
         self.btn_GetSol.setText(_translate("MainWindow", "Get Sol"))
         self.btn_NewEntry.setText(_translate("MainWindow", "New Entry"))
         self.btn_Database.setText(_translate("MainWindow", "Database"))
